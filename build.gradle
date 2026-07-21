@@ -52,13 +52,22 @@ processResources {
 
 shadowJar {
     archiveClassifier.set('')
-    // Relocate shaded libraries to avoid clashing with other plugins.
-    relocate 'org.sqlite', 'com.orthodoxicons.lib.sqlite'
+
+    // Relocate Gson only. Gson is pure Java and safe to relocate.
     relocate 'com.google.gson', 'com.orthodoxicons.lib.gson'
-    minimize {
-        // Keep the SQLite native binaries and JDBC service files.
-        exclude(dependency('org.xerial:sqlite-jdbc:.*'))
-    }
+
+    // IMPORTANT: Do NOT relocate 'org.sqlite'.
+    // sqlite-jdbc bundles a native library (libsqlitejdbc.so/.dll/.dylib) whose
+    // JNI symbols are hardcoded to the original 'org.sqlite' package name
+    // (e.g. Java_org_sqlite_core_NativeDB__1open_1utf8). Relocating the Java
+    // classes to another package makes the JVM look up JNI symbols under the
+    // new name, which do not exist in the binary, producing:
+    //   java.lang.UnsatisfiedLinkError: ...NativeDB._open_utf8(byte[], int)
+    // The driver must stay in its original package so the native binding works.
+
+    // 'minimize' is intentionally omitted. sqlite-jdbc loads classes and its
+    // native binaries reflectively at runtime, so tree-shaking risks stripping
+    // required resources. The resulting jar is small regardless.
 }
 
 tasks.named('build') {
