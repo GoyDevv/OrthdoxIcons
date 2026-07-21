@@ -1,0 +1,15 @@
+# ===========================================================================
+#  messages.yml
+#
+#  This file documents the message keys used by OrthodoxIcons and lets server
+#  owners override the active locale strings without editing the bundled
+#  language files. Any key present here overrides the same key from
+#  lang/<locale>.yml. Leave a key out to use the localized default.
+#
+#  Color codes use the legacy '&' format and MiniMessage-style hex '&#rrggbb'.
+# ===========================================================================
+
+overrides:
+  # Example override (uncomment to customize):
+  # prefix: '&8[&5OrthodoxIcons&8]&r '
+  # command.reload.success: '&aConfiguration reloaded.'

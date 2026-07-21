@@ -1,0 +1,66 @@
+name: Build & Release
+
+on:
+  push:
+    branches: [ master, main ]
+    tags: [ 'v*' ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17 (Minecraft 1.20.x target)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle 8.5
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.5'
+
+      - name: Build with Gradle
+        run: gradle shadowJar --no-daemon
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OrthodoxIcons
+          path: build/libs/*.jar
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: OrthodoxIcons
+
+      - name: Extract version from tag
+        id: get_version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: OrthodoxIcons ${{ steps.get_version.outputs.version }}
+          body: |
+            ## OrthodoxIcons ${{ steps.get_version.outputs.version }}
+
+            Download the `OrthodoxIcons.jar` below and place it in your server's `plugins/` folder.
+
+            ### What's new
+            See the [commit log](https://github.com/${{ github.repository }}/commits/${{ github.ref_name }}) for details.
+          files: OrthodoxIcons*.jar
+          generate_release_notes: true

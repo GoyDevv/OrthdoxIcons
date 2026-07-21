@@ -1,0 +1,73 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = project.group
+version = project.version
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'papermc'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+}
+
+dependencies {
+    // Paper API (also runs on Spigot / Purpur). Provided by the server at runtime.
+    compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
+
+    // Optional soft dependencies - compile only, detected reflectively at runtime.
+    compileOnly 'com.viaversion:viaversion-api:4.9.2'
+
+    // Shaded runtime dependencies.
+    implementation 'org.xerial:sqlite-jdbc:3.44.1.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+def targetJavaVersion = 17
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release.set(targetJavaVersion)
+    options.compilerArgs += ['-Xlint:all', '-Xlint:-processing']
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+shadowJar {
+    archiveClassifier.set('')
+    // Relocate shaded libraries to avoid clashing with other plugins.
+    relocate 'org.sqlite', 'com.orthodoxicons.lib.sqlite'
+    relocate 'com.google.gson', 'com.orthodoxicons.lib.gson'
+    minimize {
+        // Keep the SQLite native binaries and JDBC service files.
+        exclude(dependency('org.xerial:sqlite-jdbc:.*'))
+    }
+}
+
+tasks.named('build') {
+    dependsOn(tasks.named('shadowJar'))
+}
+
+tasks.named('jar') {
+    enabled = false
+}

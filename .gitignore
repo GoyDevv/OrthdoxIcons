@@ -1,0 +1,25 @@
+# Build output
+/build/
+/.gradle/
+
+# IDE
+/.idea/
+/.vscode/
+*.iml
+/out/
+/bin/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime plugin data (do not commit downloaded icons / caches)
+/run/
+plugins/OrthodoxIcons/
+
+# Archives
+*.zip
+*.tar.gz
+
+# Extraction artifacts
+extracted/

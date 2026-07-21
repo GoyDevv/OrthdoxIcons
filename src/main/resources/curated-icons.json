@@ -1,0 +1,78 @@
+{
+  "_comment": "Bundled curated manifest of public-domain Eastern Orthodox icons. Every entry links to a freely-licensed source image. This file ships with the plugin so it works fully offline of any crawler and provides a guaranteed fallback provider.",
+  "license_note": "All entries are historical works in the public domain (author died 70+ years ago) or released under CC0/PD by the hosting institution. Attribution is preserved for good practice.",
+  "icons": [
+    {
+      "name": "Christ Pantocrator (Sinai)",
+      "saint": "Jesus Christ",
+      "feast": "",
+      "category": "Christ",
+      "description": "The 6th-century encaustic icon of Christ Pantocrator from Saint Catherine's Monastery, Mount Sinai.",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Spas_vsederzhitel_sinay.jpg/640px-Spas_vsederzhitel_sinay.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Spas_vsederzhitel_sinay.jpg",
+      "attribution": "Saint Catherine's Monastery, Mount Sinai",
+      "license": "Public Domain",
+      "tags": ["christ", "pantocrator", "sinai", "encaustic"]
+    },
+    {
+      "name": "Theotokos of Vladimir",
+      "saint": "Theotokos",
+      "feast": "Feast of the Vladimir Icon (June 3, July 6, September 8)",
+      "category": "Theotokos",
+      "description": "The 12th-century Byzantine icon of the Virgin Mary and Child known as Our Lady of Vladimir.",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Vladimirskaya.jpg/512px-Vladimirskaya.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vladimirskaya.jpg",
+      "attribution": "Tretyakov Gallery, Moscow",
+      "license": "Public Domain",
+      "tags": ["theotokos", "virgin mary", "vladimir", "eleusa"]
+    },
+    {
+      "name": "The Holy Trinity (Rublev)",
+      "saint": "Holy Trinity",
+      "feast": "Pentecost",
+      "category": "Feasts",
+      "description": "Andrei Rublev's early 15th-century icon of the Old Testament Trinity (the Hospitality of Abraham).",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Angelsatmamre-trinity-rublev-1410.jpg/512px-Angelsatmamre-trinity-rublev-1410.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Angelsatmamre-trinity-rublev-1410.jpg",
+      "attribution": "Andrei Rublev, Tretyakov Gallery",
+      "license": "Public Domain",
+      "tags": ["trinity", "rublev", "pentecost", "angels"]
+    },
+    {
+      "name": "Saint Nicholas of Myra",
+      "saint": "Nicholas of Myra",
+      "feast": "December 6",
+      "category": "Saints",
+      "description": "Icon of Saint Nicholas the Wonderworker, Archbishop of Myra in Lycia.",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Spas_Nikola.jpg/480px-Spas_Nikola.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Spas_Nikola.jpg",
+      "attribution": "Public domain, Wikimedia Commons",
+      "license": "Public Domain",
+      "tags": ["saint", "nicholas", "wonderworker", "myra"]
+    },
+    {
+      "name": "Saint George and the Dragon",
+      "saint": "George",
+      "feast": "April 23",
+      "category": "Saints",
+      "description": "Icon of the Great Martyr George slaying the dragon.",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Saint_George_and_the_Dragon_-_Google_Art_Project.jpg/480px-Saint_George_and_the_Dragon_-_Google_Art_Project.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Saint_George_and_the_Dragon_-_Google_Art_Project.jpg",
+      "attribution": "Public domain, Wikimedia Commons",
+      "license": "Public Domain",
+      "tags": ["saint", "george", "martyr", "dragon"]
+    },
+    {
+      "name": "The Nativity of Christ",
+      "saint": "Jesus Christ",
+      "feast": "December 25",
+      "category": "Feasts",
+      "description": "Traditional icon of the Nativity of the Lord.",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Nativity_of_Christ_icon.jpg/480px-Nativity_of_Christ_icon.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nativity_of_Christ_icon.jpg",
+      "attribution": "Public domain, Wikimedia Commons",
+      "license": "Public Domain",
+      "tags": ["nativity", "christmas", "feast"]
+    }
+  ]
+}

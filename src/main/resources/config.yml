@@ -1,0 +1,172 @@
+# ===========================================================================
+#  OrthodoxIcons configuration
+#  Every value below is hot-reloadable with /icons reload.
+# ===========================================================================
+
+# Configuration schema version. Do not edit manually.
+config-version: 1
+
+# Master switch for verbose logging. Also toggle at runtime with /icons debug.
+debug: false
+
+# Locale used for all player-facing messages. A matching file must exist under
+# lang/<locale>.yml (bundled: en). Additional translations can be dropped in.
+locale: en
+
+# ---------------------------------------------------------------------------
+#  Storage (abstract layer, SQLite is the default and only bundled backend).
+# ---------------------------------------------------------------------------
+storage:
+  # Supported: SQLITE (bundled). MYSQL is reserved for a future backend and
+  # falls back to SQLITE with a warning if selected without the driver.
+  type: SQLITE
+  sqlite:
+    # Database file name, resolved inside the plugin data folder.
+    file: orthodoxicons.db
+  mysql:
+    host: localhost
+    port: 3306
+    database: orthodoxicons
+    username: root
+    password: ''
+    pool-size: 8
+    use-ssl: false
+
+# ---------------------------------------------------------------------------
+#  Icon fetching / update scheduler.
+# ---------------------------------------------------------------------------
+fetching:
+  # Run a fetch pass automatically when the plugin enables.
+  fetch-on-startup: true
+  # Automatic refresh interval in minutes. Set to 0 to disable the scheduler.
+  refresh-interval-minutes: 720
+  # Maximum number of simultaneous downloads.
+  max-concurrent-downloads: 4
+  # HTTP connection + read timeout in seconds.
+  timeout-seconds: 20
+  # Number of retry attempts per failed request (in addition to the first try).
+  retry-limit: 3
+  # Base delay in milliseconds for exponential backoff between retries.
+  retry-backoff-ms: 750
+  # Honor robots.txt for every host before crawling / downloading.
+  respect-robots-txt: true
+  # User-Agent sent with every request.
+  user-agent: 'OrthodoxIcons/1.0 (+https://github.com/orthodoxicons/OrthodoxIcons)'
+  # Maximum icons discovered per provider per pass (safety limit).
+  max-icons-per-provider: 250
+
+# ---------------------------------------------------------------------------
+#  Providers. Add new provider blocks freely; unknown ids are ignored unless a
+#  matching provider class is registered. Built-in ids: wikimedia, curated.
+# ---------------------------------------------------------------------------
+providers:
+  # Curated public-domain manifest bundled with the plugin. Always safe.
+  curated:
+    enabled: true
+  # Wikimedia Commons category crawler (public-domain / CC imagery only).
+  wikimedia:
+    enabled: true
+    # Commons categories to crawl. Only files with a free license are kept.
+    categories:
+      - 'Eastern Orthodox icons'
+      - 'Icons of Jesus Christ'
+      - 'Icons of the Theotokos'
+    # Only accept these license short-codes (substring match, case-insensitive).
+    allowed-licenses:
+      - 'public domain'
+      - 'pd-'
+      - 'cc0'
+      - 'cc-by'
+      - 'cc by'
+
+# ---------------------------------------------------------------------------
+#  Local cache.
+# ---------------------------------------------------------------------------
+cache:
+  # Automatically remove processed/thumbnail artifacts for icons that no longer
+  # exist in any provider manifest.
+  auto-cleanup: true
+  # Remove cached originals older than this many days that are not referenced
+  # by any placed icon. 0 disables age-based cleanup.
+  max-age-days: 0
+  # Maximum total cache size in megabytes. 0 disables size-based cleanup.
+  max-size-mb: 512
+
+# ---------------------------------------------------------------------------
+#  Image processing.
+# ---------------------------------------------------------------------------
+image:
+  # Rendered map texture size. Minecraft maps are 128x128; keep this at 128
+  # unless you know what you are doing.
+  texture-size: 128
+  # Thumbnail size used for cached previews.
+  thumbnail-size: 64
+  # How the source image is fitted onto the square map canvas.
+  #   CONTAIN  - preserve aspect ratio, letterbox with the background color.
+  #   COVER    - preserve aspect ratio, center-crop to fill.
+  #   STRETCH  - ignore aspect ratio.
+  fit-mode: CONTAIN
+  # Letterbox background color (ARGB hex) used by CONTAIN.
+  background-color: '#00000000'
+
+# ---------------------------------------------------------------------------
+#  Item appearance.
+# ---------------------------------------------------------------------------
+item:
+  # Material used as the base for icon items. filled_map is required for the
+  # in-world map rendering to work; changing it disables rendering.
+  material: FILLED_MAP
+  # Show the license line in item lore.
+  show-license: true
+  # Show the provider line in item lore.
+  show-provider: true
+  # Maximum characters per wrapped description line.
+  description-wrap: 40
+
+# ---------------------------------------------------------------------------
+#  Crafting.
+# ---------------------------------------------------------------------------
+crafting:
+  enabled: true
+  # A single shaped recipe that yields a 'blank' consecration frame which the
+  # player then fills via the GUI, plus per-icon direct recipes are optional.
+  blank-icon:
+    enabled: true
+    result-amount: 1
+    # 3x3 shape. Use single characters; map them under 'ingredients'.
+    shape:
+      - 'GLG'
+      - 'LPL'
+      - 'GLG'
+    ingredients:
+      G: GOLD_INGOT
+      L: GLOWSTONE_DUST
+      P: PAINTING
+
+# ---------------------------------------------------------------------------
+#  Placement in the world.
+# ---------------------------------------------------------------------------
+placement:
+  enabled: true
+  # Make the placed item frame invisible so only the icon shows.
+  invisible-frame: true
+  # Make the placed frame fixed (cannot be rotated/removed by interaction).
+  fixed-frame: true
+  # Prevent players from placing icons where they cannot build (protection API).
+  respect-protection: true
+  # Drop the original icon item when the placed icon is broken.
+  drop-on-break: true
+  # Maximum placed icons a single player may own. 0 = unlimited.
+  max-per-player: 0
+
+# ---------------------------------------------------------------------------
+#  GUI.
+# ---------------------------------------------------------------------------
+gui:
+  # Rows in the browser inventory (3-6). Row 6 is reserved for navigation.
+  rows: 6
+  title: '&5&lOrthodox Icons'
+  # Default sort: NAME, SAINT, FEAST, CATEGORY, DATE_ADDED, PROVIDER.
+  default-sort: NAME
+  # Use an anvil-based text prompt for search where available.
+  anvil-search: true

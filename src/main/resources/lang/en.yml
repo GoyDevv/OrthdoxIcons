@@ -1,0 +1,94 @@
+# Default English localization for OrthodoxIcons.
+# Copy this file to lang/<locale>.yml and translate the values to add a language.
+prefix: '&8[&5OrthodoxIcons&8]&r '
+
+general:
+  no-permission: '&cYou do not have permission to do that.'
+  players-only: '&cThis command can only be used by players.'
+  unknown-command: '&cUnknown subcommand. Use &f/icons help&c.'
+  reloading: '&7Reloading OrthodoxIcons...'
+  busy: '&eAn operation is already running, please wait.'
+  icon-not-found: '&cNo icon found matching &f%query%&c.'
+  player-not-found: '&cPlayer &f%player%&c not found.'
+  invalid-number: '&c''%value%'' is not a valid number.'
+
+command:
+  help:
+    header: '&5&lOrthodox Icons &7- commands'
+    line: '&d/icons %usage% &8- &7%description%'
+  version: '&7Running &fOrthodoxIcons v%version%&7 on &f%server%&7.'
+  reload:
+    success: '&aReloaded configuration, language, recipes and providers.'
+    failed: '&cReload failed: %error%'
+  give:
+    usage: '&7Usage: &f/icons give <player> <iconId> [amount]'
+    success: '&aGave &f%amount%x %icon%&a to &f%player%&a.'
+    received: '&aYou received &f%amount%x %icon%&a.'
+  update:
+    started: '&7Icon update started in the background...'
+    finished: '&aUpdate complete: &f%added% added&7, &f%updated% updated&7, &f%skipped% skipped&7, &f%failed% failed&7.'
+  cache:
+    usage: '&7Usage: &f/icons cache <info|clean|clear>'
+    info: '&7Cache: &f%icons% icons&7, &f%images% images&7, &f%size%&7 on disk.'
+    cleaned: '&aCache cleanup removed &f%removed%&a orphaned files.'
+    cleared: '&aCache cleared (&f%removed%&a files removed).'
+  provider:
+    header: '&5Providers:'
+    line: '&7- &f%id% &7[%state%&7] &8- &7%count% icons'
+    enabled: '&aenabled'
+    disabled: '&cdisabled'
+  info:
+    usage: '&7Usage: &f/icons info <iconId>'
+    header: '&5&l%title%'
+    saint: '&7Saint: &f%saint%'
+    feast: '&7Feast: &f%feast%'
+    category: '&7Category: &f%category%'
+    provider: '&7Provider: &f%provider%'
+    license: '&7License: &f%license%'
+    tags: '&7Tags: &f%tags%'
+    source: '&7Source: &f%source%'
+  stats: '&7Icons: &f%icons%&7 | Placed: &f%placed%&7 | Providers: &f%providers%&7 | Cache: &f%cache%'
+  debug:
+    toggled: '&7Debug mode is now %state%&7.'
+    on: '&aON'
+    off: '&cOFF'
+  random:
+    given: '&aA random icon (&f%icon%&a) has been added to your inventory.'
+
+item:
+  saint: '&7Saint: &f%saint%'
+  feast: '&7Feast: &f%feast%'
+  category: '&7Category: &f%category%'
+  provider: '&7Provider: &f%provider%'
+  license: '&7License: &f%license%'
+  source: '&7Source: &f%source%'
+  hint: '&8Place on a wall to display.'
+
+placement:
+  success: '&aIcon placed.'
+  removed: '&7Icon removed.'
+  no-space: '&cThere is no room to place the icon there.'
+  protected: '&cYou cannot place an icon here.'
+  limit-reached: '&cYou have reached your placed-icon limit (&f%limit%&c).'
+  disabled: '&cIcon placement is disabled on this server.'
+
+gui:
+  title: '&5&lOrthodox Icons'
+  loading: '&7Loading icons...'
+  empty: '&7No icons to display.'
+  search-prompt: '&7Type your search...'
+  category-all: 'All'
+  favorites-title: '&5&lYour Favorites'
+  nav:
+    previous: '&aPrevious page'
+    next: '&aNext page'
+    page-info: '&7Page &f%page%&7 / &f%pages%'
+    search: '&bSearch'
+    categories: '&bCategories'
+    favorites: '&dFavorites'
+    random: '&eRandom'
+    sort: '&bSort: &f%sort%'
+    close: '&cClose'
+    obtain: '&aClick to obtain'
+    favorite-add: '&7Shift-click to favorite'
+    favorite-remove: '&7Shift-click to unfavorite'
