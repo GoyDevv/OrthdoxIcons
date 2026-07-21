@@ -3,11 +3,12 @@ name: Build & Release
 on:
   push:
     branches: [ master, main ]
-    tags: [ 'v*' ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -34,33 +35,21 @@ jobs:
           path: build/libs/*.jar
           if-no-files-found: error
 
-  release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
-    steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: OrthodoxIcons
-
-      - name: Extract version from tag
-        id: get_version
-        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+      - name: Generate release tag
+        id: tag
+        run: |
+          echo "version=build-$(date +'%Y%m%d-%H%M%S')-${{ github.run_id }}" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: OrthodoxIcons ${{ steps.get_version.outputs.version }}
+          tag_name: ${{ steps.tag.outputs.version }}
+          name: OrthodoxIcons ${{ steps.tag.outputs.version }}
           body: |
-            ## OrthodoxIcons ${{ steps.get_version.outputs.version }}
+            ## OrthodoxIcons ${{ steps.tag.outputs.version }}
 
-            Download the `OrthodoxIcons.jar` below and place it in your server's `plugins/` folder.
+            Auto-built from commit ${{ github.sha }}.
 
-            ### What's new
-            See the [commit log](https://github.com/${{ github.repository }}/commits/${{ github.ref_name }}) for details.
-          files: OrthodoxIcons*.jar
+            Download the `.jar` below and place it in your server's `plugins/` folder.
+          files: build/libs/*.jar
           generate_release_notes: true

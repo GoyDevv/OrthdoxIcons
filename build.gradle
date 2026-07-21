@@ -28,9 +28,6 @@ dependencies {
     // Paper API (also runs on Spigot / Purpur). Provided by the server at runtime.
     compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
 
-    // Optional soft dependencies - compile only, detected reflectively at runtime.
-    compileOnly 'com.viaversion:viaversion-api:4.9.2'
-
     // Shaded runtime dependencies.
     implementation 'org.xerial:sqlite-jdbc:3.44.1.0'
     implementation 'com.google.code.gson:gson:2.10.1'
