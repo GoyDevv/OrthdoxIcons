@@ -28,17 +28,9 @@ jobs:
       - name: Build with Gradle
         run: gradle shadowJar --no-daemon
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: OrthodoxIcons
-          path: build/libs/*.jar
-          if-no-files-found: error
-
-      - name: Generate release tag
+      - name: Generate unique release tag
         id: tag
-        run: |
-          echo "version=build-$(date +'%Y%m%d-%H%M%S')-${{ github.run_id }}" >> $GITHUB_OUTPUT
+        run: echo "version=build-$(date +'%Y%m%d-%H%M%S')-run${{ github.run_id }}_attempt${{ github.run_attempt }}" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -50,6 +42,6 @@ jobs:
 
             Auto-built from commit ${{ github.sha }}.
 
-            Download the `.jar` below and place it in your server's `plugins/` folder.
+            Drop the `.jar` into your server's `plugins/` folder and restart.
           files: build/libs/*.jar
           generate_release_notes: true
