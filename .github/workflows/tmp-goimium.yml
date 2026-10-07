@@ -1,0 +1,40 @@
+name: temporary goimium apk
+
+on:
+  push:
+    branches:
+      - tmp-goimium-build-20261007
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: setup gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.7"
+
+      - name: build debug apk
+        working-directory: .tmp-goimium/goimium
+        run: gradle assembleDebug --no-daemon --stacktrace
+
+      - name: upload apk
+        uses: actions/upload-artifact@v4
+        with:
+          name: goimium-debug-apk
+          path: .tmp-goimium/goimium/app/build/outputs/apk/debug/*.apk
+          retention-days: 1
+          if-no-files-found: error
